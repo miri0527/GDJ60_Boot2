@@ -30,7 +30,7 @@
     <div class="container px-5 my-5">
  	 	<div class="text-center mb-5">
 	         <a href="./list"><h1 class="fw-bolder">${board} List</h1></a>
-	         <p class="lead fw-normal text-muted mb-0">공지사항</p>
+	         <p class="lead fw-normal text-muted mb-0">${board}</p>
      	 </div>
      	 
      	 <div>
