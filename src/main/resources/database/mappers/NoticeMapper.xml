@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+ <mapper namespace="com.iu.base.board.notice.NoticeDAO">
+ 
+ 	<sql id="search">
+ 		<where>
+ 			<if test="kind == 'title'">
+ 				TITLE LIKE CONCAT('%', #{search} '%')
+ 			</if>
+ 			<if test="kind == 'contents'">
+ 				CONTENTS LIKE CONCAT('%', #{search} '%')
+ 			</if>
+ 			<if test="kind == 'writer'">
+ 				WRITER LIKE CONCAT('%', #{search} '%')
+ 			</if>
+ 		</where>
+ 	</sql>
+ 	<select id="getTotalCount" resultType="java.lang.Long">
+ 		SELECT COUNT(NUM) FROM NOTICE
+ 	</select>
+ 	
+ 	<insert id="setInsert" parameterType="BoardVO" useGeneratedKeys="true" keyProperty="num">
+ 		INSERT INTO NOTICE(NUM,TITLE,CONTENTS,WRITER,REGDATE,HIT)
+ 		VALUES(#{num},#{title},#{contents},#{writer},now(),0)
+ 	</insert>
+ 	
+ 	<insert id="setFileInsert" parameterType="BoardFileVO">
+ 		INSERT INTO NOTICEFILES
+ 		VALUES (#{fileNum},#{num},#{fileName},#{oriName})
+ 	</insert>
+ 	
+ 	<select id="getList" parameterType="Pager" resultType="NoticeVO">
+ 		SELECT * FROM NOTICE 
+ 		<include refid="search"></include>
+ 		ORDER BY NUM DESC
+ 		LIMIT #{startRow},#{perPage}
+ 	</select>
+ 	
+ 	<select id="getDetail" parameterType="BoardVO" resultMap="NoticeResult">
+ 		SELECT N.*, NF.* 
+		FROM NOTICE N
+			LEFT JOIN
+			NOTICEFILES NF 
+			ON (N.NUM = NF.NUM)
+		WHERE N.NUM=#{num}
+ 	</select>
+ 	
+ 	<resultMap type="NoticeVO"  id="NoticeResult" >
+ 		<id column="NUM" property="num"/>
+ 		<result column="TITLE" property="title"/>
+ 		<result column="WRITER" property="writer"/>
+ 		<result column="CONTENTS" property="contents"/>
+ 		<result column="REGDATE" property="regDate"/>
+ 		<result column="HIT" property="hit"/>
+ 		<collection property="boardFileVOs" javaType="List" ofType="BoardFileVO">
+ 			<id column="FILENUM" property="fileNum"/>
+ 			<result column="FILENAME" property="fileName"/>
+ 			<result column="ORINAME" property="oriName"/> 
+ 		</collection>
+ 	</resultMap>
+ 	
+ 	<select id="getFileDetail" parameterType="BoardFileVO" resultType="BoardFileVO">
+ 		SELECT * FROM NOTICEFILES
+ 		WHERE FILENUM=#{fileNum}
+ 	</select>
+ </mapper>
