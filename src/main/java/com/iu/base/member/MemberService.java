@@ -7,12 +7,48 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.validation.BindingResult;
 
 @Service
 public class MemberService {
 
 	@Autowired
 	private MemberDAO memberDAO;
+	
+	
+	
+	//패스워드 일치하는지 검증하는 메서드
+	//에러 유무를 검증하는 메서드
+	public boolean memberCheck(MemberVO memberVO, BindingResult bindingResult) throws Exception {
+		boolean result = false;
+		
+		//false : error가 없음, 검증성공
+		//true : error가 실패, 검증실패
+		
+		//1. annotation 검증 결과
+		 result = bindingResult.hasErrors();
+		 
+		 //2.password가 일치하는지 검증
+		 if(!memberVO.getPassword().equals(memberVO.getPasswordCheck())) {
+			 result = true;
+			 //우리가 검증하는 것은 annotation이 없다
+			 //bindingResult.rejectValue("멤버변수명(path)',properties의 key(코드)');
+			 bindingResult.rejectValue("passwordCheck", "member.password.notEqual");
+		 }
+		 
+		 //3. ID 중복 검사
+		  //MemberVO checkMember =  memberDAO.idDuplicateCheck(memberVO);
+		 MemberVO checkMember = memberDAO.idDuplicateCheck(memberVO);
+		  
+		  if(checkMember !=null) {
+			  result = true;
+			  bindingResult.rejectValue("userName", "member.userName.Duplicate");
+		  }
+		  
+		
+		 
+		 return result;
+	}
 	
 	public int setMemberJoin(MemberVO memberVO) throws Exception {
 		memberVO.setEnabled(true);

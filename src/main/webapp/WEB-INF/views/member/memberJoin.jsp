@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
     <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %> 
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>    
 <!DOCTYPE html>
 <html>
 <head>
@@ -36,54 +37,53 @@
                                 <!-- To make this form functional, sign up at-->
                                 <!-- https://startbootstrap.com/solution/contact-forms-->
                                 <!-- to get an API token!-->
-                                <form id="joinForm" action="./memberJoin" method="post" data-sb-form-api-token="API_TOKEN" enctype="multipart/form-data">
+                                <!-- <form id="joinForm" action="./memberJoin" method="post" data-sb-form-api-token="API_TOKEN" enctype="multipart/form-data">-->
+              						<form:form id="joinForm" modelAttribute="memberVO" >
                                     <!-- 아이디 input-->
                                       <div class="form-floating mb-3">
-                                        <input class="form-control" id="userName" name="userName" required="required" type="text" data-sb-validations="required,email" />
-                                        <label for="userName">아이디 입력</label>
-                                        <div class="invalid-feedback" data-sb-feedback="email:required">An email is required.</div>
-                                        <div class="invalid-feedback" data-sb-feedback="email:email">Email is not valid.</div>
+                                        
+                                        <form:input path="userName" id="userName" cssClass="form-control"/>
+                                        <form:label path="userName" for="userName">아이디 입력</form:label>
+                                        <form:errors path="userName" cssStyle="color:red;"></form:errors>
                                     </div>
                                     <!-- 비밀번호 input-->
                                     <div class="form-floating mb-3">
-                                        <input class="form-control" id="password" name="password" type="password" data-sb-validations="required,email" />
-                                        <label for="password">비밀번호 입력</label>
-                                        <div class="invalid-feedback" data-sb-feedback="email:required">An email is required.</div>
-                                        <div class="invalid-feedback" data-sb-feedback="email:email">Email is not valid.</div>
+                                       
+                                        <form:password path="password" id="password" cssClass="form-control"/>
+                                        <form:label path="password" for="password">비밀번호 입력</form:label>
+                                       	<form:errors path="password" cssStyle="color:red;"></form:errors>
                                     </div>
                                      <!-- 비밀번호 check-->
                                     <div class="form-floating mb-3">
-                                        <input class="form-control" id="passwordCheck" name="passwordCheck" type="password" data-sb-validations="required,email" />
-                                        <label for="password">비밀번호 확인</label>
-                                        <div class="invalid-feedback" data-sb-feedback="email:required">An email is required.</div>
-                                        <div class="invalid-feedback" data-sb-feedback="email:email">Email is not valid.</div>
+                                        <form:password path="passwordCheck" id="passwordCheck" cssClass="form-control"></form:password>
+                                        <label for="passwordCheck">비밀번호 확인</label>
+                                        <form:errors path="passwordCheck"></form:errors>
+                                      
                                     </div>
                                     <!-- 이름 입력 -->
                                      <div class="form-floating mb-3">
-                                        <input class="form-control" id="name" name="name" type="text" data-sb-validations="required,email" />
+                                        <form:input path="name" id="name" cssClass="form-control"/>
                                         <label for="name">이름</label>
-                                        <div class="invalid-feedback" data-sb-feedback="email:required">An email is required.</div>
-                                        <div class="invalid-feedback" data-sb-feedback="email:email">Email is not valid.</div>
+                                         <form:errors path="name" cssStyle="color:red;"></form:errors>
+                                        
                                     </div>
                                    <!-- 이메일 입력 -->
                                     <div class="form-floating mb-3">
-                                        <input class="form-control" id="email" name="email" type="email" data-sb-validations="required,email" />
-                                        <label for="email">이메일</label>
-                                        <div class="invalid-feedback" data-sb-feedback="email:required">An email is required.</div>
-                                        <div class="invalid-feedback" data-sb-feedback="email:email">Email is not valid.</div>
+                                        <form:input cssClass="form-control" id="email" path="email"/>
+                                        <form:label path="email" for="email">이메일</form:label>
+                                       
                                     </div>
                                     <!-- 생년월일 입력 -->
                                      <div class="form-floating mb-3">
                                         <input class="form-control" id="birth" name="birth" type="date" data-sb-validations="required,email" />
                                         <label for="birth">생년월일 입력</label>
-                                        <div class="invalid-feedback" data-sb-feedback="email:required">An email is required.</div>
-                                        <div class="invalid-feedback" data-sb-feedback="email:email">Email is not valid.</div>
+                                        <form:errors path="birth" ></form:errors>
                                     </div>
                                     <!--  -->
                                  	
                                     <!-- Submit Button-->
                                     <div class="d-grid"><button class="btn btn-primary btn-lg" id="submitButton" type="submit">Submit</button></div>
-                                </form>
+                               </form:form>
                             </div>
                         </div>
                     </div>

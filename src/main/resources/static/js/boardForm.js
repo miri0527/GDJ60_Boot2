@@ -8,7 +8,7 @@ const writer = document.getElementById("writer")
 
 const contactForm = document.getElementById("contactForm")
 
-submitButton.addEventListener("click", function() {
+/*submitButton.addEventListener("click", function() {
 	if(title.value == '') {
 		alert("제목은 필수사항입니다")
 		return;
@@ -20,4 +20,4 @@ submitButton.addEventListener("click", function() {
 	}
 	
 	contactForm.submit()
-})
+})*/

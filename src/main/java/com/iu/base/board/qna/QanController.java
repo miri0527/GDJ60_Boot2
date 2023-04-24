@@ -2,8 +2,11 @@ package com.iu.base.board.qna;
 
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -15,9 +18,11 @@ import com.iu.base.board.BoardVO;
 import com.iu.base.util.Pager;
 
 import lombok.Getter;
+import lombok.extern.slf4j.Slf4j;
 
 @Controller
 @RequestMapping("/qna/*")
+@Slf4j
 public class QanController {
 	
 	@Autowired
@@ -40,7 +45,7 @@ public class QanController {
 	}	
 	
 	@GetMapping("add")
-	public ModelAndView setInsert() throws Exception {
+	public ModelAndView setInsert(@ModelAttribute BoardVO boardVO) throws Exception {
 		ModelAndView mv = new ModelAndView();
 		
 		mv.setViewName("board/add");
@@ -49,8 +54,14 @@ public class QanController {
 	}
 	
 	@PostMapping("add")
-	public ModelAndView setInsert(BoardVO boardVO, MultipartFile[] boardFiles) throws Exception {
+	public ModelAndView setInsert(@Valid BoardVO boardVO,BindingResult bindingResult, MultipartFile[] boardFiles) throws Exception {
 		ModelAndView mv = new ModelAndView();
+		
+		if(bindingResult.hasErrors()) {
+			log.warn("검증에 실패");
+			mv.setViewName("board/add");
+			return mv;
+		}
 		
 		
 		int result = qnaService.setInsert(boardVO, boardFiles);

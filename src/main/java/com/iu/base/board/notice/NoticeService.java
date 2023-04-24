@@ -60,12 +60,12 @@ public class NoticeService implements BoardService{
 		
 		log.error("Num======{}", boardVO.getNum());
 		
-		Random random = new Random();
-		int num = random.nextInt(1);
-		
-		if(num == 0) {
-			throw new Exception();
-		}
+		/*
+		 * Random random = new Random(); int num = random.nextInt(1);
+		 */
+		/*
+		 * if(num == 0) { throw new Exception(); }
+		 */
 		
 		if(multipartFiles !=null) {
 			for (MultipartFile multipartFile : multipartFiles) {
