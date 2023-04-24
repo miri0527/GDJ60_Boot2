@@ -38,15 +38,23 @@
                                 <!-- to get an API token!-->
                                 <form id="joinForm" action="./memberJoin" method="post" data-sb-form-api-token="API_TOKEN" enctype="multipart/form-data">
                                     <!-- 아이디 input-->
-                                    <div class="form-floating mb-3">
-                                        <input class="form-control" id="userName" type="text" name="userName"  placeholder="Enter Title..." data-sb-validations="required"/>
+                                      <div class="form-floating mb-3">
+                                        <input class="form-control" id="userName" name="userName" required="required" type="text" data-sb-validations="required,email" />
                                         <label for="userName">아이디 입력</label>
-                                        <div class="invalid-feedback" data-sb-feedback="name:required">A name is required.</div>
+                                        <div class="invalid-feedback" data-sb-feedback="email:required">An email is required.</div>
+                                        <div class="invalid-feedback" data-sb-feedback="email:email">Email is not valid.</div>
                                     </div>
                                     <!-- 비밀번호 input-->
                                     <div class="form-floating mb-3">
                                         <input class="form-control" id="password" name="password" type="password" data-sb-validations="required,email" />
                                         <label for="password">비밀번호 입력</label>
+                                        <div class="invalid-feedback" data-sb-feedback="email:required">An email is required.</div>
+                                        <div class="invalid-feedback" data-sb-feedback="email:email">Email is not valid.</div>
+                                    </div>
+                                     <!-- 비밀번호 check-->
+                                    <div class="form-floating mb-3">
+                                        <input class="form-control" id="passwordCheck" name="passwordCheck" type="password" data-sb-validations="required,email" />
+                                        <label for="password">비밀번호 확인</label>
                                         <div class="invalid-feedback" data-sb-feedback="email:required">An email is required.</div>
                                         <div class="invalid-feedback" data-sb-feedback="email:email">Email is not valid.</div>
                                     </div>
@@ -59,14 +67,14 @@
                                     </div>
                                    <!-- 이메일 입력 -->
                                     <div class="form-floating mb-3">
-                                        <input class="form-control" id="email" name="email" type="text" data-sb-validations="required,email" />
+                                        <input class="form-control" id="email" name="email" type="email" data-sb-validations="required,email" />
                                         <label for="email">이메일</label>
                                         <div class="invalid-feedback" data-sb-feedback="email:required">An email is required.</div>
                                         <div class="invalid-feedback" data-sb-feedback="email:email">Email is not valid.</div>
                                     </div>
                                     <!-- 생년월일 입력 -->
                                      <div class="form-floating mb-3">
-                                        <input class="form-control" id="birth" name="birth" type="text" data-sb-validations="required,email" />
+                                        <input class="form-control" id="birth" name="birth" type="date" data-sb-validations="required,email" />
                                         <label for="birth">생년월일 입력</label>
                                         <div class="invalid-feedback" data-sb-feedback="email:required">An email is required.</div>
                                         <div class="invalid-feedback" data-sb-feedback="email:email">Email is not valid.</div>
@@ -108,7 +116,7 @@
  <!-- footer 적용 -->
       <c:import url="../temp/footer.jsp"></c:import>
      <!-- footer 끝 -->
-     
+     <script type="text/javascript" src="/js/joinFormCheck.js"></script>
   
 </body>
 </html>

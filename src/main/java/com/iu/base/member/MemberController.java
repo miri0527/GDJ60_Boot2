@@ -1,5 +1,8 @@
 package com.iu.base.member;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,10 +11,14 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
+
+import lombok.extern.slf4j.Slf4j;
 
 @Controller
 @RequestMapping("/member/*")
+@Slf4j
 public class MemberController {
 	
 	@Autowired
@@ -76,5 +83,35 @@ public class MemberController {
 		
 		return mv;
 	}
+	
+	@GetMapping("idDuplicateCheck") 
+	@ResponseBody
+	//jsp를 거칠 필요없이 바로 js로 감
+	public boolean idDuplicateCheck(MemberVO memberVO) throws Exception {
+		//String -> return이름이 jsp 이름 
+		//void -> url주소가 jsp 이름
+		log.debug("=======ID 중복 체크 =====");
+		boolean check = true;
+		memberVO =  memberService.idDuplicateCheck(memberVO);
+		
+		if(memberVO !=null) {
+			check = false;
+		}
+		
+		return check;
+	}
+	
+	@GetMapping("myPage")
+	public void getMyPage() throws Exception {
+		
+	}
+	
+	@GetMapping("admin")
+	public void getAdmin() throws Exception{
+		
+	}
+	
+	
+	
 
 }

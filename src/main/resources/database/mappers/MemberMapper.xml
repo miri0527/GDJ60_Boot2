@@ -30,13 +30,19 @@
   	
   	<insert id="setMemberJoin" parameterType="MemberVO">
   		INSERT INTO MEMBER
-  		VALUES (#{userName},#{password},#{name},#{email},#{birth}, 1)
+  		VALUES (#{userName},#{password},#{name},#{email},#{birth}, #{enabled})
   	</insert>
   	
-  	<insert id="setMemberRoleAdd" parameterType="MemberVO">
+  	<insert id="setMemberRoleAdd" parameterType="Map">
   		INSERT INTO MEMBERROLE
-		VALUES (#{userName},(SELECT NUM FROM ROLE WHERE ROLENAME='ROLE_MEMBER'))
+  		VALUES(#{userName},#{num})
   	</insert>
   	
+  	<select id="idDuplicateCheck" resultType="MemberVO" parameterType="MemberVO">
+  		SELECT USERNAME FROM MEMBER
+  		WHERE USERNAME=#{userName}
+  	</select>
+  	
+
   	
   </mapper>
