@@ -3,6 +3,7 @@ package com.iu.base.board.notice;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -117,5 +118,15 @@ public class NoticeController {
 		return mv;
 	}
 	
+	@PostMapping("delete")
+	public ModelAndView setDelete(BoardVO boardVO, HttpSession session) throws Exception {
+		ModelAndView mv = new ModelAndView();
+		int result =  noticeService.setDelete(boardVO, session);
+		
+		mv.setViewName("redirect:./list");
+		
+		return mv;
+		
+	}
 
 }

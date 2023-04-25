@@ -39,6 +39,10 @@
  		LIMIT #{startRow},#{perPage}
  	</select>
  	
+ 	<select id="getFileList" parameterType="BoardVO" resultType="BoardFileVO">
+ 		SELECT * FROM NOTICEFILES WHERE NUM=#{num}
+ 	</select>
+ 	
  	<select id="getDetail" parameterType="BoardVO" resultMap="NoticeResult">
  		SELECT N.*, NF.* 
 		FROM NOTICE N
@@ -66,4 +70,9 @@
  		SELECT * FROM NOTICEFILES
  		WHERE FILENUM=#{fileNum}
  	</select>
+ 	
+ 	<delete id="setDelete" parameterType="BoardVO">
+ 		DELETE FROM NOTICE
+ 		WHERE USERNAME=#{userName}
+ 	</delete>
  </mapper>

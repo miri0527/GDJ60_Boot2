@@ -2,6 +2,8 @@ package com.iu.base.board;
 
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.web.multipart.MultipartFile;
 
 import com.iu.base.util.Pager;
@@ -24,6 +26,6 @@ public interface BoardService {
 		public int setUpdate(BoardVO boardVO) throws Exception;
 
 		//글삭제
-		public int setDelete(BoardVO boardVO) throws Exception;
+		public int setDelete(BoardVO boardVO ,HttpSession session) throws Exception;
 		
 }

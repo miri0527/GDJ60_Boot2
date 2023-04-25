@@ -3,6 +3,8 @@ package com.iu.base.board.notice;
 import java.util.List;
 import java.util.Random;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -99,9 +101,10 @@ public class NoticeService implements BoardService{
 	}
 
 	@Override
-	public int setDelete(BoardVO boardVO) throws Exception {
-		// TODO Auto-generated method stub
-		return 0;
+	public int setDelete(BoardVO boardVO, HttpSession session) throws Exception {
+		List<BoardFileVO> ar =  noticeDAO.getFileList(boardVO);
+		int result = noticeDAO.setDelete(boardVO);
+		return result;
 	}
 	
 	

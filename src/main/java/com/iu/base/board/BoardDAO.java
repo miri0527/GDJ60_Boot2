@@ -12,6 +12,9 @@ public interface BoardDAO {
 	//글리스트 조회
 	public List<BoardVO> getList(Pager pager) throws Exception;
 	
+	//파일 조회
+	public List<BoardFileVO> getFileList(BoardVO boardVO) throws Exception;
+	
 	//글하나 조회
 	public BoardVO getDetail(BoardVO boardVO) throws Exception;
 	
