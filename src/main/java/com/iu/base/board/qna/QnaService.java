@@ -2,6 +2,8 @@ package com.iu.base.board.qna;
 
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -78,8 +80,9 @@ public class QnaService implements BoardService {
 		return 0;
 	}
 
+
 	@Override
-	public int setDelete(BoardVO boardVO) throws Exception {
+	public int setDelete(BoardVO boardVO, HttpSession session) throws Exception {
 		// TODO Auto-generated method stub
 		return 0;
 	}
