@@ -102,7 +102,6 @@ public class NoticeService implements BoardService{
 
 	@Override
 	public int setDelete(BoardVO boardVO, HttpSession session) throws Exception {
-		List<BoardFileVO> ar =  noticeDAO.getFileList(boardVO);
 		int result = noticeDAO.setDelete(boardVO);
 		return result;
 	}

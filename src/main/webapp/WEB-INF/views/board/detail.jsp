@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>         
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <!DOCTYPE html>
 <html>
  <head>
@@ -99,6 +100,9 @@
                                 </div>
                                 
                           </section>
+                          <form:form id="Delete" action="./delete" method="post">
+                          <button class="btn btn-primary" id="DeleteBtn" type="submit">DELTE</button>
+                          </form:form>
          
   </main>
  <!-- footer 적용 -->

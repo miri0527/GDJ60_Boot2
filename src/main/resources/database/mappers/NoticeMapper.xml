@@ -72,7 +72,8 @@
  	</select>
  	
  	<delete id="setDelete" parameterType="BoardVO">
- 		DELETE FROM NOTICE
- 		WHERE USERNAME=#{userName}
+ 		DELETE FROM NOTICE 
+		WHERE NUM=#{num}
  	</delete>
+ 
  </mapper>
