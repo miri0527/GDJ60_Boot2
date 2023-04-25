@@ -55,38 +55,7 @@
                                         <form:errors path="writer" cssStyle="color:red;"></form:errors>
                                     </div>
                                     
-                                    <!--spring form을 써서 subVO.subName이 가능  -->
-                                     <div class="form-floating mb-3">
-                                        <form:input path="subVO.subName" id="writer" cssClass="form-control"/>
-                                        <label for="writer">SubName</label>
-                                       
-                                    </div>
-                                    
-                                     <div class="form-floating mb-3">
-                                        <form:input path="names" id="writer" cssClass="form-control"/>
-                                        <label for="writer">Names</label>
-                                       
-                                    </div>
-                                    <div class="form-floating mb-3">
-                                        <form:input path="names" id="writer" cssClass="form-control"/>
-                                        <label for="writer">Names</label>
-                                       
-                                    </div>
-                                    
-                                    <!-- List는 index 번호로 적으면 가능하지만, 꺼내는 인덱스변호가 차이가 나면 
-                                    그 사이에 있는 인덱스는 null이 뜬다  -->
-                                    <!-- 인덱스 번호 같은 것을 꺼내면, 여러개가 한꺼번에 꺼내진다 -->
-                                     <div class="form-floating mb-3">
-                                        <form:input path="boardFileVOs[1].fileName" id="writer" cssClass="form-control"/>
-                                        <label for="writer">BoardFileName</label>
-                                       
-                                    </div>
-                                    
-                                     <div class="form-floating mb-3">
-                                        <form:input path="boardFileVOs[5].fileName" id="writer" cssClass="form-control"/>
-                                        <label for="writer">BoardFileName</label>
-                                       
-                                    </div>
+                                   
                                    
                                     <!-- Contents input-->
                                     <div class="form-floating mb-3">
