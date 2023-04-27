@@ -34,6 +34,8 @@ public class MemberVO {
 	@Past
 	private Date birth;
 	
+	private Date lastTime;
+	
 
 	private boolean enabled;
 	

@@ -7,6 +7,7 @@ import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -91,8 +92,12 @@ public class MemberController {
 	}
 	
 	@GetMapping("memberLogout")
-	public ModelAndView getMemberLogout(HttpSession session) throws Exception {
+	public ModelAndView getMemberLogout(HttpSession session, MemberVO memberVO) throws Exception {
 		ModelAndView mv = new ModelAndView();
+		
+		memberVO =  (MemberVO) session.getAttribute("member");
+		int result =  memberService.setLogoutTime(memberVO);
+		
 		
 		session.invalidate();
 		
@@ -101,6 +106,7 @@ public class MemberController {
 		return mv;
 	}
 	
+
 	@GetMapping("idDuplicateCheck") 
 	@ResponseBody
 	//jsp를 거칠 필요없이 바로 js로 감
@@ -127,6 +133,8 @@ public class MemberController {
 	public void getAdmin() throws Exception{
 		
 	}
+
+	
 	
 	
 	

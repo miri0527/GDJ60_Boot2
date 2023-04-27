@@ -1,15 +1,20 @@
 package com.iu.base.member;
 
+import java.sql.Date;
 import java.util.HashMap;
 import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.BindingResult;
 
+import lombok.extern.slf4j.Slf4j;
+
 @Service
+
 public class MemberService {
 
 	@Autowired
@@ -69,5 +74,11 @@ public class MemberService {
 		return memberDAO.idDuplicateCheck(memberVO);
 		
 	}
+	
+	public int setLogoutTime(MemberVO memberVO) throws Exception {
+		return memberDAO.setLogoutTime(memberVO);
+	}
+	
+
 	
 }
