@@ -8,20 +8,44 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.BindingResult;
 
 import lombok.extern.slf4j.Slf4j;
 
 @Service
-
-public class MemberService {
+@Slf4j
+@Transactional(rollbackFor = Exception.class)
+public class MemberService implements UserDetailsService{
 
 	@Autowired
 	private MemberDAO memberDAO;
 	
+	@Autowired
+	private PasswordEncoder passwordEncoder;
 	
-	
+	@Override
+	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+		log.error("========Spring Security Login========");
+		log.error("======={}===========", username);
+		//MemberMapper에서 password가 꺼내져있으면  spring Security가 알아서 memberVO를 리턴할 때 패스워드를 비교해준다  
+		//service에서는 password를 꺼내서 비교하는 역할이지 로그인 성공 여부를 비교하는 것은 아니다	
+		MemberVO memberVO = new MemberVO();
+		memberVO.setUsername(username);
+		try {
+			memberVO =  memberDAO.getMemberLogin(memberVO);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return memberVO;
+	}
+
 	//패스워드 일치하는지 검증하는 메서드
 	//에러 유무를 검증하는 메서드
 	public boolean memberCheck(MemberVO memberVO, BindingResult bindingResult) throws Exception {
@@ -47,7 +71,7 @@ public class MemberService {
 		  
 		  if(checkMember !=null) {
 			  result = true;
-			  bindingResult.rejectValue("userName", "member.userName.Duplicate");
+			  bindingResult.rejectValue("username", "member.username.Duplicate");
 		  }
 		  
 		
@@ -56,10 +80,11 @@ public class MemberService {
 	}
 	
 	public int setMemberJoin(MemberVO memberVO) throws Exception {
-		memberVO.setEnabled(true);
+		//memberVO.setEnabled(true);
+		memberVO.setPassword(passwordEncoder.encode(memberVO.getPassword()));
 		int result =  memberDAO.setMemberJoin(memberVO);
 		Map<String, Object> map = new HashMap<>();
-		map.put("userName", memberVO.getUserName());
+		map.put("username", memberVO.getUsername());
 		map.put("num", 3);
 		result = memberDAO.setMemberRoleAdd(map);
 		

@@ -41,7 +41,7 @@
                                 <form id="contactForm" action="./memberLogin" method="post" data-sb-form-api-token="API_TOKEN" >
                                     <!-- userName input-->
                                     <div class="form-floating mb-3">
-                                        <input class="form-control" id="userName" type="text" name="userName"	  placeholder="Enter your UserName..." data-sb-validations="required"/>
+                                        <input class="form-control" id="username" type="text" name="username" value="${cookie.remember.value} "placeholder="Enter your UserName..." data-sb-validations="required"/>
                                         <label for="userName">아이디</label>
                                         <div class="invalid-feedback" data-sb-feedback="name:required">A name is required.</div>
                                     </div>
@@ -52,12 +52,20 @@
                                         <div class="invalid-feedback" data-sb-feedback="email:required">An email is required.</div>
                                         <div class="invalid-feedback" data-sb-feedback="email:email">Email is not valid.</div>
                                     </div>
+                                    
+                                    <div class="form-floating mb-3">
+                                        <input class="" id="remember" name="remember" type="checkbox" value ="remember" data-sb-validations="required,email" />
+                                        <label for="remember">ID기억하기</label>
+                                       
+                                    </div>
                                    
                                    
                             
                                     <!-- Submit Button-->
                                     <div class="d-grid"><button class="btn btn-primary btn-lg" id="submitButton" type="submit">Submit</button></div>
                                 </form>
+                                
+                                <a href="./findPassword">비밀번호 찾기</a>
                             </div>
                         </div>
                     </div>

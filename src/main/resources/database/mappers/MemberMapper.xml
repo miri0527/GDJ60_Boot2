@@ -5,7 +5,7 @@
   
   <mapper namespace="com.iu.base.member.MemberDAO">
   	<select id="getMemberLogin" parameterType="MemberVO" resultMap="MemberLogin" >
-  		SELECT M.USERNAME,R.NUM,R.ROLENAME
+  		SELECT M.USERNAME,R.NUM,R.ROLENAME, M.PASSWORD
 		FROM MEMBER M
 			INNER JOIN 
 			MEMBERROLE MR 
@@ -13,12 +13,12 @@
 			INNER JOIN
 			ROLE R
 			ON(MR.NUM = R.NUM)
-		WHERE M.USERNAME = #{userName} AND M.PASSWORD=#{password}
+		WHERE M.USERNAME = #{username}
   		
   	</select>
   	
   	<resultMap type="MemberVO" id="MemberLogin">
-  		<id column="USERNAME" property="userName"/>
+  		<id column="USERNAME" property="username"/>
   		<result column="PASSWORD" property="password"/>
   		<result column="NAME" property="name"/>
   		
@@ -30,17 +30,17 @@
   	
   	<insert id="setMemberJoin" parameterType="MemberVO">
   		INSERT INTO MEMBER
-  		VALUES (#{userName},#{password},#{name},#{email},#{birth}, #{enabled})
+  		VALUES (#{username},#{password},#{name},#{email},#{birth},1, now())
   	</insert>
   	
   	<insert id="setMemberRoleAdd" parameterType="Map">
   		INSERT INTO MEMBERROLE
-  		VALUES(#{userName},#{num})
+  		VALUES(#{username},#{num})
   	</insert>
   	
   	<select id="idDuplicateCheck" resultType="MemberVO" parameterType="MemberVO">
   		SELECT USERNAME FROM MEMBER
-  		WHERE USERNAME=#{userName}
+  		WHERE USERNAME=#{username}
   	</select>
   	
   	<select id="getMemberAll" resultType="MemberVO">
@@ -50,7 +50,7 @@
 	<update id="setLogoutTime" parameterType="MemberVO">
 		UPDATE MEMBER 
 		SET LASTTIME=now()
-		WHERE USERNAME=#{userName}
+		WHERE USERNAME=#{username}
 	</update>
 
 	<select id="setEnabled">
@@ -64,5 +64,10 @@
 		SELECT NAME FROM MEMBER
       	WHERE DATE_FORMAT(BIRTH, '%m-%d') = DATE_FORMAT(now(), '%m-%d')
 	</select>
+	
+	<update id="setMemberPwChange" parameterType="MemberVO" >
+		UPDATE MEMBER SET PASSWORD=#{password}
+		WHERE USERNAME=#{username}
+	</update>
   	
   </mapper>

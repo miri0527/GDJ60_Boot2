@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>    
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
             <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
                 <div class="container px-5">
                     <a class="navbar-brand" href="/">Miri's House</a>
@@ -27,16 +28,14 @@
                                 </ul>
                             </li>
                             
-                           <c:choose>
-                           <c:when test="${empty member}">
+                         	<sec:authorize access="!isAuthenticated()">
 	                          <li class="nav-item"><a class="nav-link" href="/member/memberLogin">Login</a></li>
 	                          <li class="nav-item"><a class="nav-link" href="/member/memberJoin">Join</a></li>
-	                        </c:when>
-	                        <c:otherwise>
+	                        </sec:authorize>
+	                        <sec:authorize access="isAuthenticated()">
 	                          <li class="nav-item"><a class="nav-link" href="/member/memberLogout">Logout</a></li>
 	                          <li class="nav-item"><a class="nav-link" href="/member/myPage">MyPage</a></li>
-	                        </c:otherwise>
-                          </c:choose>  
+	                       </sec:authorize>
                           
                             <li class="nav-item"><a class="nav-link" href="/?lang_opt=ko">KO</a></li>
 	                        <li class="nav-item"><a class="nav-link" href="/?lang_opt=en">EN</a></li>

@@ -1,6 +1,7 @@
 package com.iu.base.member;
 
 import java.util.ArrayList;
+import java.util.Enumeration;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
@@ -8,6 +9,8 @@ import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextImpl;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -27,6 +30,25 @@ public class MemberController {
 	
 	@Autowired
 	private MemberService memberService;
+	
+	@GetMapping("info")
+	public void info(HttpSession session) {
+		log.error("=====Login Info======");
+//		Enumeration<String> names = session.getAttributeNames();
+//		
+//		while(names.hasMoreElements()) {
+//			log.error("====={}====",names.nextElement());
+//		}
+		Object obj =  session.getAttribute("SPRING_SECURITY_CONTEXT");
+		log.error("===={}======",obj);
+		SecurityContextImpl contextImpl = (SecurityContextImpl)obj;
+		Authentication authentication =  contextImpl.getAuthentication();
+		
+		log.error("======{}=====",obj);
+		log.error("======USERName : {} =====", authentication.getName());
+		log.error("=====Detail : {} ======", authentication.getDetails());
+		log.error("======MemberVO : {}", authentication.getPrincipal());
+	}
 	
 	@GetMapping("memberJoin")
 	public ModelAndView setMemberJoin(@ModelAttribute MemberVO memberVO) throws Exception {
@@ -65,31 +87,42 @@ public class MemberController {
 	}
 	
 	@GetMapping("memberLogin")
-	public ModelAndView getMemberLogin() throws Exception {
+	public ModelAndView getMemberLogin(HttpSession session) throws Exception {
 		ModelAndView mv = new ModelAndView();
 		
-		mv.setViewName("member/memberLogin");
+		Object obj= session.getAttribute("SPRING_SECURITY_CONTEXT");
+		
+		if(obj == null) {
+			mv.setViewName("member/memberLogin");
+		}else {
+			mv.setViewName("redirect../");
+		}
+		
+		
+		
 		
 		return mv;
 		
 	}
 	
-	@PostMapping("memberLogin")
-	public ModelAndView getMemberLogin(MemberVO memberVO, HttpSession session) throws Exception {
-		ModelAndView mv = new ModelAndView();
-		
-		memberVO =  memberService.getMemberLogin(memberVO);
-		
-		mv.setViewName("redirect:./memberLogin");
-		
-		if(memberVO !=null) {
-			 session.setAttribute("member", memberVO);
-			 mv.setViewName("redirect:../");
-			 
-		}
-		
-		return mv;
-	}
+	//Security로 넘어가면서 post가 없어도 login가능
+	
+//	@PostMapping("memberLogin")
+//	public ModelAndView getMemberLogin(MemberVO memberVO, HttpSession session) throws Exception {
+//		ModelAndView mv = new ModelAndView();
+//		
+//		memberVO =  memberService.getMemberLogin(memberVO);
+//		
+//		mv.setViewName("redirect:./memberLogin");
+//		
+//		if(memberVO !=null) {
+//			 session.setAttribute("member", memberVO);
+//			 mv.setViewName("redirect:../");
+//			 
+//		}
+//		
+//		return mv;
+//	}
 	
 	@GetMapping("memberLogout")
 	public ModelAndView getMemberLogout(HttpSession session, MemberVO memberVO) throws Exception {
@@ -133,9 +166,6 @@ public class MemberController {
 	public void getAdmin() throws Exception{
 		
 	}
-
-	
-	
 	
 	
 

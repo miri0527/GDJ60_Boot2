@@ -23,6 +23,9 @@ public class TestSchedule {
 	
 	@Autowired
 	private NoticeDAO noticeDAO;
+	
+	@Autowired
+	private  MailManager mailManager;
 
 	//fixRate : 해당 메서드가 언제 동료 되는지 상관 없음 -> 스레드 개념과 비슷
 	//fixDelay : 해당 메서드가 종료 후 일정 간격 실행
@@ -41,7 +44,7 @@ public class TestSchedule {
 		
 	}
 	
-	@Scheduled(cron="10 * * * * *")
+//	@Scheduled(cron="10 * * * * *")
 	public void test2() throws Exception {
 		List<MemberVO> ar = memberDAO.getBirth();
 		

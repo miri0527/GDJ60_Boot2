@@ -26,7 +26,7 @@ public class AdminCheckInterceptor implements HandlerInterceptor{
 		
 		HttpSession session = request.getSession();
 		MemberVO memberVO = (MemberVO) session.getAttribute("member");
-		log.info(memberVO.getUserName());
+		log.info(memberVO.getUsername());
 		
 		List<RoleVO> ar =  memberVO.getRoleVOs();
 		

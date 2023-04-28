@@ -42,9 +42,9 @@
                                     <!-- 아이디 input-->
                                       <div class="form-floating mb-3">
                                         
-                                        <form:input path="userName" id="userName" cssClass="form-control"/>
-                                        <form:label path="userName" for="userName">아이디 입력</form:label>
-                                        <form:errors path="userName" cssStyle="color:red;"></form:errors>
+                                        <form:input path="username" id="userName" cssClass="form-control"/>
+                                        <form:label path="username" for="userName">아이디 입력</form:label>
+                                        <form:errors path="username" cssStyle="color:red;"></form:errors>
                                     </div>
                                     <!-- 비밀번호 input-->
                                     <div class="form-floating mb-3">
