@@ -23,5 +23,6 @@
  <!-- footer 적용 -->
       <c:import url="../temp/footer.jsp"></c:import>
      <!-- footer 끝 -->
+
 </body>
 </html>

@@ -35,7 +35,7 @@ public class TestSchedule {
 //	}
 	
 	//그 시간이 됐을 때 실행시켜줌
-	@Scheduled(cron="0/10 * * * * *")			
+	//@Scheduled(cron="0/10 * * * * *")			
 	public void test() throws Exception {
 		int result = memberDAO.setEnabled();
 		

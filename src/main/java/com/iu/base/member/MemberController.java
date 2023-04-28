@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextImpl;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -31,8 +32,26 @@ public class MemberController {
 	@Autowired
 	private MemberService memberService;
 	
+	@Autowired
+	private PasswordEncoder passwordEncoder;
+	
 	@GetMapping("info")
 	public void info(HttpSession session) {
+		//암호회되지 않은 실제 비밀번호
+		String pw="12345678";
+		
+		MemberVO memberVO =(MemberVO)memberService.loadUserByUsername("user1");
+		
+		//암호화 된 password와 평문을 암호화 시킨것과 다르다
+		log.error("====={}====", memberVO.getPassword());
+		log.error("====={}====", passwordEncoder.encode(pw));
+		log.error("{} ::::", memberVO.getPassword().equals(passwordEncoder.encode(pw)));
+		
+		//평문으로 된 pw와 db에 저장된 암호화된 비밀번호랑 비교
+		boolean check = passwordEncoder.matches(pw, memberVO.getPassword());
+		
+		log.error("{} :::", check);
+		
 		log.error("=====Login Info======");
 //		Enumeration<String> names = session.getAttributeNames();
 //		

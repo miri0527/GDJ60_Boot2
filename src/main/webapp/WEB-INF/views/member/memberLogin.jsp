@@ -38,6 +38,11 @@
                                 <!-- To make this form functional, sign up at-->
                                 <!-- https://startbootstrap.com/solution/contact-forms-->
                                 <!-- to get an API token!-->
+                                
+                                <c:if test="${not empty param.errorMessage}">
+                                <h1>${param.errorMessage}</h1>
+                                </c:if>
+                                
                                 <form id="contactForm" action="./memberLogin" method="post" data-sb-form-api-token="API_TOKEN" >
                                     <!-- userName input-->
                                     <div class="form-floating mb-3">
@@ -98,5 +103,9 @@
  <!-- footer 적용 -->
       <c:import url="../temp/footer.jsp"></c:import>
      <!-- footer 끝 -->
+  <script type="text/javascript">
+  /* UserLoginFailHandler에서 errorMessage를 redirect로 보내면 url창에 파라미터가 찍히니 그게 싫으면 여기에 이걸 추가해주면 된다 */
+ 	history.replaceState({}, null, location.pathname)
+ </script>    
 </body>
 </html>

@@ -14,6 +14,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 
+import com.iu.base.security.UserLoginFailHandler;
 import com.iu.base.security.UserLogoutSuccessHandler;
 import com.iu.base.security.UserSuccessHandler;
 
@@ -73,7 +74,8 @@ public class SecurityConfig {
 				//Autowired로 객체를 집어넣어도 되고 새로운 객체를 만들어도됨
 				.successHandler(new UserSuccessHandler())
 				//인증에 실패했을 때
-				.failureUrl("/member/memberLogin")
+				//.failureUrl("/member/memberLogin")
+				.failureHandler(new UserLoginFailHandler())
 				.permitAll()
 				.and()
 			.logout()

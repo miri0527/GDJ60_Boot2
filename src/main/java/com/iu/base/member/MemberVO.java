@@ -22,6 +22,9 @@ import lombok.Setter;
 @Setter
 public class MemberVO  implements UserDetails{
 	
+	//enabled Setter가 필요하여 멤버변수로 선언
+	private boolean enabled;
+	
 	@NotBlank
 	private String username;
 	
@@ -86,7 +89,7 @@ public class MemberVO  implements UserDetails{
 		//계정 사용 여부
 		//true : 계정 활성화
 		//false : 계정 비활성화, 로그인 안됨
-		return true;
+		return this.enabled;
 	}
 	
 //	@Override
