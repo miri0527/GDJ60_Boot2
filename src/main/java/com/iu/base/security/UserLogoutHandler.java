@@ -40,11 +40,14 @@ public class UserLogoutHandler implements LogoutHandler{
 	@Override
 	public void logout(HttpServletRequest request, HttpServletResponse response, Authentication authentication) {
 		//실패
-//		//1.
+//		//1. => controller에 있음
 //		//request.getSession().getAttribute("SPRING_SECURITY_CONTEXT");
 //		//2.
-//			 
+//		SecurityContextHolder == SecurityContextImpl	 
+		//리턴 : Object 타입 
 //		MemberVO memberVO =  (MemberVO) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		
+		//memberVO에 있는 attributes 꺼내기
 //	 	Map<String,Object> atts =  memberVO.getAttributes();
 //	 	
 //	 	Iterator<String> keys= atts.keySet().iterator();

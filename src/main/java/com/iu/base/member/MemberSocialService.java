@@ -45,6 +45,7 @@ public class MemberSocialService extends DefaultOAuth2UserService{
 		return this.socialJoinCheck(userRequest);
 	}
 
+	//네이버를 구현했을 때 네이버 메서드를 따로 구현하기 이하여 메서드 따로 생성
 	private OAuth2User socialJoinCheck(OAuth2UserRequest auth2UserRequest) {
 		//DB에서 조회 후 회원 추가 또는 회원 정보 조회
 		//Kakao에서 받은 정보를 MemberVO로 변경
